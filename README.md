@@ -6,8 +6,9 @@ A todo web app using gql.tada to get typescript info from graphql server.
 
 1. `postgres` docker (define SQL tables)
 1. `postgraphile` docker (read postgres, make /graphql and /graphile endpoint)
-1. `gql.tada`/`@0no-co/graphqlsp` npm (read postgraphil introspection schema and make typescript)
-1. `react`/`urql npm`, (make query/mutation and present in a webapp)
+1. `@0no-co/graphqlsp` npm (read postgraphil introspection schema)
+1. `gql.tada` npm (read query/mutation together with schema to make graphql typescript)
+1. `react`/`urql npm`, app (use graphql typescript, query, mutation in webapp)
 
 # Setup
 

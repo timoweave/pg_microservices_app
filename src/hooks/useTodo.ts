@@ -1,21 +1,50 @@
-import { graphql } from 'gql.tada';
+import { FragmentOf, ResultOf, VariablesOf } from 'gql.tada';
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'urql';
+import { graphql } from '../utils/graphql';
 
-export const todoListQuery = graphql(`
-    query todoListQuery {
-        allTodos(orderBy: CREATED_AT_DESC) {
-            nodes {
-                id
-                title
-                isDone
-                createdAt
-            }
-        }
+export const TodoFragment = graphql(`
+    fragment TodoFragment on Todo {
+        id
+        title
+        isDone
+        createdAt
     }
 `);
 
-// export type Todo = (typeof todoListQuery)['allTodos']['nodes'][0];
+export type TodoFragmentType = FragmentOf<typeof TodoFragment>;
+
+export const todoQuery = graphql(
+    `
+        query todoQuery($id: UUID!) {
+            todoById(id: $id) {
+                ...TodoFragment
+            }
+        }
+    `,
+    [TodoFragment],
+);
+
+export type todoQueryResult = ResultOf<typeof todoQuery>;
+
+export type todoQueryVariables = VariablesOf<typeof todoQuery>;
+
+export const todoListQuery = graphql(
+    `
+        query todoListQuery($first: Int = 10) {
+            allTodos(orderBy: CREATED_AT_DESC, first: $first) {
+                nodes {
+                    ...TodoFragment
+                }
+            }
+        }
+    `,
+    [TodoFragment],
+);
+
+export type todoListQueryResult = ResultOf<typeof todoListQuery>;
+
+export type todoListQueryVariables = VariablesOf<typeof todoListQuery>;
 
 export const createTodoMutation = graphql(`
     mutation createTodo($title: String) {
@@ -26,6 +55,12 @@ export const createTodoMutation = graphql(`
         }
     }
 `);
+
+export type createTodoMutationResult = ResultOf<typeof createTodoMutation>;
+
+export type createTodoMutationVariables = VariablesOf<
+    typeof createTodoMutation
+>;
 
 export function useGQLTodo() {
     const [todoResponse] = useQuery({ query: todoListQuery, variables: {} });
@@ -59,9 +94,6 @@ export function useGQLTodo() {
         console.error(`mutating todo has error...`);
         // throw new Error(`mutating todo error...`);
     }
-
-    // const node = todoResponse.data?.allTodos?.nodes?.[0];
-    // type Todo = NonNullable<typeof node>;
 
     return {
         todoResponse,
