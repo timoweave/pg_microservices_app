@@ -7,17 +7,16 @@ on:
 
 jobs:
   frontend_test:
-    # using: 'node16'
     runs-on: ubuntu-latest
 
     steps:
-    - name: 1. checkout repo
+    - name: Checkout repo
       uses: actions/checkout@v4
-    - name: 2. set node version 22
+    - name: Set node version 22
       uses: actions/setup-node@v2
       with:
-        node-version: '22.x'
-    - name: 3. install npm packages
+        node-version: '22.1.0'
+    - name: Install packages
       run: npm ci
-    - name: 4. run tests
+    - name: Test regression
       run: npm test
