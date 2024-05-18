@@ -8,6 +8,7 @@
 		"tada_doctor": "gql.tada doctor",
 		"tada_check": "gql.tada check",
 		"tada_generate": "gql.tada generate",
+		"tada_turbo": "gql.tada turbo",
     "test": "vitest --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
