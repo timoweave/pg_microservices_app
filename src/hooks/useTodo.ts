@@ -77,11 +77,9 @@ export function useGQLTodo() {
     );
 
     if (todoResponse.fetching) {
-        console.error(`fetching todo in progress...`);
         // throw new Error(`fetching todo in progress...`);
     }
     if (createTodoResponse.fetching) {
-        console.error(`mutating todo in progress...`);
         // throw new Error(`mutating todo in progress...`);
     }
 

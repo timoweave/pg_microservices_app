@@ -8,6 +8,7 @@ import {
     useInputValue,
     useSaveTodo,
 } from '../hooks/useTodo';
+import { type DateTimeType } from '../utils/graphql';
 
 export function TodoInput() {
     const title = useInputValue();
@@ -48,9 +49,12 @@ export function TodoView(props: TodoViewProps) {
 
     const todo = readFragment(TodoFragment, data);
 
-    const { id, title, isDone } = todo;
-    const createdAt = todo.createdAt as string; // TBD: createdAt is unknown?
-    const date = new Date(createdAt).toDateString();
+    const { id, title, isDone, createdAt } = todo;
+    if (typeof createdAt !== 'string') {
+        console.error(`todo.createdAt is not string`);
+    }
+    const date = new Date(createdAt as DateTimeType).toDateString();
+
     return (
         <div className="col-span-full grid grid-cols-subgrid">
             <span className="me-2 w-[12ch] truncate rounded bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
