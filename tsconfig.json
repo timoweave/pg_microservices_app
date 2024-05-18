@@ -25,6 +25,7 @@
 				"trackFieldUsage": false, // only good in the same file
         "name": "@0no-co/graphqlsp",
 				"tadaOutputLocation": "./src/utils/graphql_introspection.d.ts",
+				"shouldCheckForColocatedFragments": false,
 				"schema": {
 					"url": "http://localhost:5050/graphql",
 					"headers": {

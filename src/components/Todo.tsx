@@ -89,7 +89,7 @@ export function TodoListViewer() {
     const todoGraphQL = useGQLTodo();
 
     return (
-        <div className="grid grid-cols-12 gap-4">
+        <div className="grid grid-cols-[repeat(10,minmax(0,1fr)),repeat(2,minmax(0,76px))] gap-4">
             {todoGraphQL.todoResponse.data?.allTodos?.nodes?.map(
                 (node: TodoFragmentType | null, index: number) => (
                     <TodoView key={index} data={node} />

@@ -4,6 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+		"tada_schema": "gql.tada generate schema 'http://localhost:5050/graphql' --output './src/utils/schema.graphql'",
+		"tada_doctor": "gql.tada doctor",
+		"tada_check": "gql.tada check",
+		"tada_generate": "gql.tada generate",
     "test": "vitest --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
